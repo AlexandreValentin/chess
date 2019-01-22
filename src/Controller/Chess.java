@@ -123,8 +123,10 @@ public class Chess {
 			}
 			
 			buttons.add(btn);
-			Chess.buttonGrid[i][j] = btn;
-			Chess.pieces[i][j] = null;
+			if (i < Chess.SIZE_SCREEN && j < Chess.SIZE_SCREEN) {
+				Chess.buttonGrid[i][j] = btn;
+				Chess.pieces[i][j] = null;				
+			}
 		}
 		
 		for (Piece piece : p2.getPieces()) {
@@ -144,8 +146,10 @@ public class Chess {
 				j++; i = 0;
 			}
 			buttons.add(btn);
-			Chess.buttonGrid[i][j] = btn;
-			Chess.pieces[i][j] = piece;
+			if (i < Chess.SIZE_SCREEN  && j < Chess.SIZE_SCREEN) {
+				Chess.buttonGrid[i][j] = btn;
+				Chess.pieces[i][j] = piece;				
+			}
 		}
 		
 		return buttons;
@@ -155,7 +159,7 @@ public class Chess {
 		ArrayList<Piece> PIECES_JOUEUR_1 = new ArrayList<Piece>();
 		ArrayList<Piece> PIECES_JOUEUR_2 = new ArrayList<Piece>();
 		Chess game = new Chess();
-		JFrame frame = new JFrame ("Echéquier - Projet Génie Logiciel - LP PRISM 2018/2019 - ALEXANDRE VALENTIN");
+		JFrame frame = new JFrame ("Echéquier - Projet Génie Logiciel - LP PRISM 2018/2019 - STEPHANE ACHARI - GUILLAUME RACHET - ALEXANDRE VALENTIN");
 
 		Player Player1 = new Player(Chess.ID_PLAYER_1, "");
 		Player Player2 = new Player(Chess.ID_PLAYER_2, "");
@@ -166,7 +170,11 @@ public class Chess {
 		Player1.setPieces(PIECES_JOUEUR_1);
 		Player2.setPieces(PIECES_JOUEUR_2);
 		
-		frame.add(game.initGame(Player1, Player2));
+		try {
+			frame.add(game.initGame(Player1, Player2));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
